@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  fastapi:
+    build: .
+    container_name: fastapi-chatbot
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./app:/app
+      - ./app/chatbot.db:/app/chatbot.db  # Persist SQLite DB on host
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    env_file:
+      - .env
